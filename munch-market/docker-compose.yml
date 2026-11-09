@@ -1,0 +1,21 @@
+name: market-stock
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: munch
+      POSTGRES_PASSWORD: munch
+      POSTGRES_DB: munch_market
+    ports:
+      - "55431:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U munch -d munch_market"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  pgdata:
